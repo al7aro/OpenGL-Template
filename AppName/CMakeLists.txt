@@ -4,6 +4,8 @@ project(${APP_NAME}
     LANGUAGES CXX
 )
 
+set(APP_OUTPUT_DIR ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}/${CMAKE_GENERATOR_PLATFORM}/${APP_NAME})
+
 file(GLOB_RECURSE source_files
     "./src/main.cpp"
 )
@@ -15,7 +17,7 @@ add_executable(${APP_NAME}
 set_target_properties(${APP_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS off
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}/${APP_NAME}
+    RUNTIME_OUTPUT_DIRECTORY ${APP_OUTPUT_DIR}
 )
 
 target_link_libraries(${APP_NAME} EngineName)

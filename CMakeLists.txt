@@ -8,5 +8,3 @@ project(${WORKSPACE_NAME})
 
 add_subdirectory(${ENGINE_NAME})
 add_subdirectory(${APP_NAME})
-
-# CMAKE_GENERATOR_PLATFORM
