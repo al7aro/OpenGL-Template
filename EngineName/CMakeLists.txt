@@ -6,15 +6,12 @@ project(${ENGINE_NAME}
 
 set(PROJECT_DIR ${CMAKE_SOURCE_DIR}/${ENGINE_NAME})
 set(VENDOR_DIR ${PROJECT_DIR}/vendor)
-set(ENGINE_OUTPUT_DIR ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}/${CMAKE_GENERATOR_PLATFORM}/${ENGINE_NAME})
 
 # GLAD
-set(GLAD_OUTPUT_DIR ${ENGINE_OUTPUT_DIR}/vendor)
 set(GLAD_CMAKE_DIR ${VENDOR_DIR}/glad)
 add_subdirectory(${GLAD_CMAKE_DIR})
 
 # GLFW
-set(GLFW_OUTPUT_DIR ${ENGINE_OUTPUT_DIR}/vendor)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -22,19 +19,20 @@ set(GLFW_CMAKE_DIR ${VENDOR_DIR}/glfw)
 add_subdirectory(${GLFW_CMAKE_DIR})
 
 # GLM
-set(GLM_OUTPUT_DIR ${ENGINE_OUTPUT_DIR}/vendor)
 set(GLM_CMAKE_DIR ${VENDOR_DIR}/glm)
 add_subdirectory(${GLM_CMAKE_DIR})
 
 # IMGUI
-set(IMGUI_OUTPUT_DIR ${ENGINE_OUTPUT_DIR}/vendor)
 set(IMGUI_CMAKE_DIR ${VENDOR_DIR}/imgui)
 add_subdirectory(${IMGUI_CMAKE_DIR})
 
 # STB
-set(STB_OUTPUT_DIR ${ENGINE_OUTPUT_DIR}/vendor)
 set(STB_CMAKE_DIR ${VENDOR_DIR}/stb)
 add_subdirectory(${STB_CMAKE_DIR})
+
+# STB
+set(ASSIMP_CMAKE_DIR ${VENDOR_DIR}/assimp)
+add_subdirectory(${ASSIMP_CMAKE_DIR})
 
 # OpenGL
 find_package(OpenGL REQUIRED)
@@ -65,6 +63,7 @@ target_link_libraries(${ENGINE_NAME} glad)
 target_link_libraries(${ENGINE_NAME} glm)
 target_link_libraries(${ENGINE_NAME} imgui)
 target_link_libraries(${ENGINE_NAME} stb)
+target_link_libraries(${ENGINE_NAME} assimp)
 target_link_libraries(${ENGINE_NAME} OpenGL::GL)
 
 # Headers
@@ -74,3 +73,4 @@ target_include_directories(${ENGINE_NAME} PUBLIC "${GLM_CMAKE_DIR}/glm")
 target_include_directories(${ENGINE_NAME} PUBLIC "${GLFW_CMAKE_DIR}/glfw/include")
 target_include_directories(${ENGINE_NAME} PUBLIC "${GLAD_CMAKE_DIR}/glad/include")
 target_include_directories(${ENGINE_NAME} PUBLIC "${STB_CMAKE_DIR}/stb/include")
+target_include_directories(${ENGINE_NAME} PUBLIC "${ASSIMP_CMAKE_DIR}/assimp/include")

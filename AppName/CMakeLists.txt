@@ -15,10 +15,6 @@ add_executable(${APP_NAME}
     ${source_files}
 )
 
-message(STATUS "HERE")
-message(STATUS ${APP_OUTPUT_DIRECTORY_DEBUG})
-message(STATUS "THERE")
-
 set_target_properties(${APP_NAME} PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS off

@@ -8,3 +8,6 @@
 	path = EngineName/vendor/glfw/glfw
 	url = https://github.com/glfw/glfw.git
 	branch = 3.3-stable
+[submodule "EngineName/vendor/assimp/assimp"]
+	path = EngineName/vendor/assimp/assimp
+	url = https://github.com/assimp/assimp.git
