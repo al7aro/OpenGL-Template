@@ -37,14 +37,26 @@ add_subdirectory(${ASSIMP_CMAKE_DIR})
 # OpenGL
 find_package(OpenGL REQUIRED)
 
-file(GLOB_RECURSE source_files
-    "./src/Engine.cpp"
-    "./src/Engine.hpp"
+file(GLOB_RECURSE ALL_SOURCES
+    "./src/*.cpp"
+    "./src/*.hpp"
+    "./src/*.h"
+	
+	"./include/*.hpp"
+	"./include/*.h"
 )
+
+message("HOLA HERMANO" ${ALL_SOURCES})
+
+foreach (src ${ALL_SOURCES})
+    get_filename_component(dir ${src} DIRECTORY)
+	string(REPLACE "${PROJECT_SOURCE_DIR}/./" "" desired_portion ${dir})
+    source_group(${desired_portion} FILES ${src})
+endforeach()
 
 add_library(${ENGINE_NAME}
     STATIC
-    ${source_files}
+    ${ALL_SOURCES}
 )
 
 set_target_properties(${ENGINE_NAME} PROPERTIES
@@ -55,6 +67,8 @@ set_target_properties(${ENGINE_NAME} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${ENGINE_OUTPUT_DIRECTORY_RELEASE}
     LIBRARY_OUTPUT_DIRECTORY_RELEASE ${ENGINE_OUTPUT_DIRECTORY_RELEASE}
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${ENGINE_OUTPUT_DIRECTORY_RELEASE}
+	
+	FOLDER ${WORKSPACE_NAME}/
 )
 
 # Libraries
@@ -67,10 +81,10 @@ target_link_libraries(${ENGINE_NAME} assimp)
 target_link_libraries(${ENGINE_NAME} OpenGL::GL)
 
 # Headers
-target_include_directories(${ENGINE_NAME} PUBLIC "${PROJECT_DIR}/src/include")
+target_include_directories(${ENGINE_NAME} PUBLIC "${PROJECT_DIR}/src")
 target_include_directories(${ENGINE_NAME} PUBLIC "${IMGUI_CMAKE_DIR}/imgui")
 target_include_directories(${ENGINE_NAME} PUBLIC "${GLM_CMAKE_DIR}/glm")
 target_include_directories(${ENGINE_NAME} PUBLIC "${GLFW_CMAKE_DIR}/glfw/include")
-target_include_directories(${ENGINE_NAME} PUBLIC "${GLAD_CMAKE_DIR}/glad/include")
+target_include_directories(${ENGINE_NAME} PUBLIC "${GLAD_CMAKE_DIR}/glad"${GLAD_VERSION}"/include")
 target_include_directories(${ENGINE_NAME} PUBLIC "${STB_CMAKE_DIR}/stb/include")
 target_include_directories(${ENGINE_NAME} PUBLIC "${ASSIMP_CMAKE_DIR}/assimp/include")

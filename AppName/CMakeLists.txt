@@ -7,12 +7,20 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../ PROPERTY VS_STARTUP_PROJE
 
 set(APP_OUTPUT_DIR ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}/${CMAKE_GENERATOR_PLATFORM}/${APP_NAME})
 
-file(GLOB_RECURSE source_files
-    "./src/main.cpp"
+file(GLOB_RECURSE ALL_SOURCES
+    "./src/*.cpp"
+    "./src/*.hpp"
+    "./src/*.h"
 )
 
+foreach (src ${ALL_SOURCES})
+    get_filename_component(dir ${src} DIRECTORY)
+	string(REPLACE "${PROJECT_SOURCE_DIR}/./" "" desired_portion ${dir})
+    source_group(${desired_portion} FILES ${src})
+endforeach()
+
 add_executable(${APP_NAME}
-    ${source_files}
+    ${ALL_SOURCES}
 )
 
 set_target_properties(${APP_NAME} PROPERTIES
@@ -26,7 +34,10 @@ set_target_properties(${APP_NAME} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${APP_OUTPUT_DIRECTORY_RELEASE}
     LIBRARY_OUTPUT_DIRECTORY_RELEASE ${APP_OUTPUT_DIRECTORY_RELEASE}
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${APP_OUTPUT_DIRECTORY_RELEASE}
+	
+	FOLDER ${WORKSPACE_NAME}/
 )
 
 target_link_libraries(${APP_NAME} EngineName)
-target_include_directories(${APP_NAME} PRIVATE src)
+target_include_directories(${APP_NAME} PRIVATE "./src")
+target_include_directories(${APP_NAME} PRIVATE "../${ENGINE_NAME}/include")
