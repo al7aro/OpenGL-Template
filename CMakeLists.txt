@@ -38,6 +38,10 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory("vendor/glfw")
 # GLM
 add_subdirectory("vendor/glm")
+# imgui
+add_subdirectory("vendor/imgui")
+# stb
+add_subdirectory("vendor/stb")
 # OpenGL
 find_package(OpenGL REQUIRED)
 
@@ -60,10 +64,14 @@ add_executable(${WORKSPACE_NAME}
 target_link_libraries(${WORKSPACE_NAME} glfw)
 target_link_libraries(${WORKSPACE_NAME} glad)
 target_link_libraries(${WORKSPACE_NAME} glm)
+target_link_libraries(${WORKSPACE_NAME} imgui)
+target_link_libraries(${WORKSPACE_NAME} stb)
 target_link_libraries(${WORKSPACE_NAME} OpenGL::GL)
 
 # Headers
 target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/glm")
+target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/imgui/imgui")
+target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/stb/include")
 target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/glfw/include")
 target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/glad"${GLAD_VERSION}"/include")
 
