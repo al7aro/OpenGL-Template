@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.4...3.28 FATAL_ERROR)
 
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(WORKSPACE_NAME "WorkspaceName")
 project(${WORKSPACE_NAME})
 
@@ -7,6 +10,8 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT $
 
 #################### SOURCES ####################
 file(GLOB_RECURSE ALL_SOURCES
+    "./src/*.cpp"
+    "./src/*.hpp"
     "./src/*.c"
     "./src/*.h"
 )
@@ -29,6 +34,10 @@ target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/glfw/include")
 add_subdirectory("vendor/stb")
 target_link_libraries(${WORKSPACE_NAME} stb)
 target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/stb/include")
+# GLM
+add_subdirectory("vendor/glm")
+target_link_libraries(${WORKSPACE_NAME} glm)
+target_include_directories(${WORKSPACE_NAME} PUBLIC "vendor/glm")
 # OpenGL
 find_package(OpenGL REQUIRED)
 target_link_libraries(${WORKSPACE_NAME} OpenGL::GL)
