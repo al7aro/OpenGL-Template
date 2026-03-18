@@ -29,5 +29,3 @@ git clone [repo-url]
   cd build
   cmake ..
   ```
-
-- <a href=""><img src="https://cdn-icons-png.flaticon.com/256/8819/8819105.png" align="center" width=200/></a>
